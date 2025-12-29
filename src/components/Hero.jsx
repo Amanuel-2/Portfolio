@@ -5,11 +5,8 @@ const Hero = () => {
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                     Hi, I'm Amanuel Wendimu
                 </h1>
-                <p className="text-xl md:text-2xl mb-8 text-slate-300 leading-relaxed">
-                    A Computer Science student and aspiring Front-End Developer who loves building clean, interactive web experiences with modern technologies.
-                </p>
-                <p className="text-lg md:text-xl mb-12 text-slate-400">
-                    I'm currently focused on learning JavaScript, React, and Tailwind CSS, and I enjoy turning ideas into real projects through hackathons and hands-on practice.
+                <p className="text-xl md:text-2xl mb-12 text-slate-300 leading-relaxed">
+                    A passionate developer building modern web applications with clean, scalable code.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg">

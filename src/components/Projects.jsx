@@ -1,22 +1,22 @@
 const Projects = () => {
     const projects = [
         {
-            title: "DevConnect (In Progress)",
-            description: "A mini social network for developers built with React. Features include user profiles, posts, and developer interaction.",
-            technologies: ["React", "Tailwind CSS"],
-            status: "In Progress"
+            title: "Exit Prep",
+            description: "A practical project focused on preparation and structure, designed to help users organize and prepare for important transitions and milestones.",
+            technologies: ["React", "JavaScript", "Tailwind CSS"],
+            purpose: "Preparation & Organization"
         },
         {
-            title: "Portfolio Website",
-            description: "A personal portfolio website to showcase my skills, projects, and journey as a developer.",
-            technologies: ["HTML", "CSS", "JavaScript", "React"],
-            status: "Completed"
+            title: "Share It",
+            description: "A project centered around sharing content or resources, enabling users to easily distribute and access shared materials within a community.",
+            technologies: ["React", "Node.js", "MongoDB"],
+            purpose: "Content Sharing"
         },
         {
-            title: "Academic & Practice Projects",
-            description: "Multiple small projects and assignments completed as part of university coursework, ALX program, and personal learning.",
-            technologies: ["Various"],
-            status: "Completed"
+            title: "Kitabeko",
+            description: "A meaningful project with real use cases, providing practical solutions for users seeking reliable and accessible information services.",
+            technologies: ["React", "Express.js", "PostgreSQL"],
+            purpose: "Information Services"
         }
     ];
 
@@ -36,9 +36,8 @@ const Projects = () => {
                                 <h3 className="text-xl font-semibold mb-2 text-slate-900">{project.title}</h3>
                                 <p className="text-slate-600 mb-4 leading-relaxed">{project.description}</p>
                                 <div className="mb-4">
-                                    <span className={`px-2 py-1 text-xs font-semibold rounded ${project.status === 'In Progress' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'
-                                        }`}>
-                                        {project.status}
+                                    <span className="px-2 py-1 text-xs font-semibold rounded bg-blue-100 text-blue-800">
+                                        {project.purpose}
                                     </span>
                                 </div>
                                 <div className="flex flex-wrap gap-2">

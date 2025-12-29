@@ -8,13 +8,13 @@ const About = () => {
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
                         <p className="text-lg leading-relaxed">
-                            I am a Computer Science student with a strong interest in web development and software engineering. I am currently enrolled in the ALX Professional Foundations Program, where I am developing both technical and professional skills.
+                            I am currently enrolled in the ALX program as a Back-End learner, building real-world web projects and focusing on practical skills in software development.
                         </p>
                         <p className="text-lg leading-relaxed">
-                            I enjoy learning by building real projects, especially using React. I like being challenged with slightly harder problems because I believe growth comes from pushing limits.
+                            I have a strong interest in modern web technologies and am committed to writing clean code, creating scalable structures, and continuous learning. I enjoy tackling challenging problems and pushing technical boundaries.
                         </p>
                         <p className="text-lg leading-relaxed">
-                            Besides coding, I am also improving my English communication skills, especially speaking, to become a better global developer.
+                            I am also actively improving my English communication skills to enhance collaboration in global development environments.
                         </p>
                     </div>
                     <div className="flex justify-center">

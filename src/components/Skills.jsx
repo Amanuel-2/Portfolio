@@ -4,7 +4,7 @@ const Skills = () => {
     ];
 
     const toolsSkills = [
-        "Git & GitHub", "Responsive Web Design", "Component-based Architecture", "Problem Solving", "Team Collaboration (Hackathons & Group Projects)"
+        "Git & GitHub", "Responsive Web Design", "Component-based Architecture", "Problem Solving", "Team Collaboration"
     ];
 
     return (

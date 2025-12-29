@@ -9,10 +9,10 @@ const Education = () => {
                     <div className="bg-slate-50 p-8 rounded-lg shadow-md">
                         <div className="text-6xl mb-4">🎓</div>
                         <h3 className="text-2xl font-semibold mb-4 text-slate-900">
-                            Bachelor's Degree in Computer Science
+                            ALX Software Engineering Program
                         </h3>
                         <p className="text-lg text-slate-600">
-                            University Student (Currently Studying)
+                            Currently enrolled as a Back-End learner, developing practical software development skills
                         </p>
                     </div>
                 </div>
