@@ -1,63 +1,60 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
-  LayoutDashboard,
-  FolderGit2,
-  Cpu,
-  UserRound,
-  Mail,
-  Github,
-  ExternalLink,
-  Download,
+  ArrowUpRight,
+  Box,
   ChevronRight,
   Circle,
-  Zap,
-  Box,
   Clock,
+  Cpu,
+  Download,
+  ExternalLink,
+  FolderGit2,
   GitBranch,
-  Terminal,
+  Github,
   Globe,
+  LayoutDashboard,
   Linkedin,
-  MessageSquare,
+  Mail,
   MapPin,
-  ArrowUpRight,
+  MessageSquare,
   Star,
+  Terminal,
+  UserRound,
+  Zap,
 } from "lucide-react";
-import profileImg from "../imports/amaan_picture2.jpg";
+import profileImg from "../imports/amaan_picture2.webp";
 
-// ─── Constants ────────────────────────────────────────────────────────────────
-
-const SIDEBAR_W = 260;
-const TOPBAR_H = 48;
+const SIDEBAR_W = 280;
 
 type NavId = "overview" | "projects" | "skills" | "about" | "contact";
 
 const NAV: { id: NavId; label: string; icon: React.ReactNode }[] = [
-  { id: "overview", label: "Overview", icon: <LayoutDashboard size={14} /> },
-  { id: "projects", label: "Projects", icon: <FolderGit2 size={14} /> },
-  { id: "skills",   label: "Skills",   icon: <Cpu size={14} /> },
-  { id: "about",    label: "About",    icon: <UserRound size={14} /> },
-  { id: "contact",  label: "Contact",  icon: <Mail size={14} /> },
+  { id: "overview", label: "Overview", icon: <LayoutDashboard size={16} /> },
+  { id: "projects", label: "Projects", icon: <FolderGit2 size={16} /> },
+  { id: "skills", label: "Skills", icon: <Cpu size={16} /> },
+  { id: "about", label: "About", icon: <UserRound size={16} /> },
+  { id: "contact", label: "Contact", icon: <Mail size={16} /> },
 ];
 
 const TECH_STACK = ["React", "Node.js", "Express", "MongoDB", "Docker", "Git"];
 
 const BUILDING = [
-  { name: "DevConnect",              status: "In Progress", dot: "#8b5cf6" },
-  { name: "Hotel Management System", status: "Active",      dot: "#10b981" },
+  { name: "DevConnect", status: "In Progress", dot: "#8b5cf6" },
+  { name: "Hotel Management System", status: "Active", dot: "#10b981" },
 ];
 
 const FEED = [
-  { icon: <GitBranch size={11} />, text: "Building authentication system" },
-  { icon: <Terminal  size={11} />, text: "Improving backend APIs" },
-  { icon: <Globe     size={11} />, text: "Working on DevConnect UI" },
-  { icon: <Zap       size={11} />, text: "Learning Docker workflows" },
+  { icon: <GitBranch size={14} />, text: "Building authentication system" },
+  { icon: <Terminal size={14} />, text: "Improving backend APIs" },
+  { icon: <Globe size={14} />, text: "Working on DevConnect UI" },
+  { icon: <Zap size={14} />, text: "Learning Docker workflows" },
 ];
 
 const STATS = [
-  { label: "Projects Completed", value: "10+",        icon: <Box  size={14} />, sub: "+3 this year"     },
-  { label: "Hours Coding",       value: "1,000+",     icon: <Clock size={14}/>, sub: "and counting"      },
-  { label: "Current Focus",      value: "Full-Stack", icon: <Zap  size={14} />, sub: "Dev"               },
+  { label: "Projects Completed", value: "10+", icon: <Box size={16} />, sub: "+3 this year" },
+  { label: "Hours Coding", value: "1,000+", icon: <Clock size={16} />, sub: "and counting" },
+  { label: "Current Focus", value: "Full-Stack", icon: <Zap size={16} />, sub: "Development" },
 ];
 
 const LEARNING = ["TypeScript", "System Design", "Cloud Deployment", "Next.js"];
@@ -65,24 +62,24 @@ const LEARNING = ["TypeScript", "System Design", "Cloud Deployment", "Next.js"];
 const PROJECTS = [
   {
     title: "DevConnect",
-    desc:  "A full-stack social platform where developers connect, share work, and collaborate in real time.",
-    tech:  ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
+    desc: "A full-stack social platform where developers connect, share work, and collaborate in real time.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
     stars: 12,
     accent: "#8b5cf6",
     featured: true,
   },
   {
     title: "Hotel Management",
-    desc:  "Complete business solution for hotel operations — rooms, reservations, payments, and staff dashboards.",
-    tech:  ["React", "Node.js", "Express", "MongoDB"],
+    desc: "Complete business solution for hotel operations including rooms, reservations, payments, and staff dashboards.",
+    tech: ["React", "Node.js", "Express", "MongoDB"],
     stars: 8,
     accent: "#10b981",
     featured: false,
   },
   {
     title: "Portfolio Website",
-    desc:  "Modern developer portfolio with dashboard layout, smooth animations, and a contact system.",
-    tech:  ["React", "Tailwind CSS", "Framer Motion"],
+    desc: "Modern developer portfolio with a dashboard layout, polished interactions, and a responsive contact flow.",
+    tech: ["React", "Tailwind CSS", "Motion"],
     stars: 6,
     accent: "#f59e0b",
     featured: false,
@@ -90,29 +87,31 @@ const PROJECTS = [
 ];
 
 const SKILLS_GROUPS = [
-  { label: "Frontend",       color: "#8b5cf6", items: ["HTML5", "CSS3", "JavaScript ES6+", "React", "Tailwind CSS", "Responsive Design"] },
-  { label: "Backend",        color: "#10b981", items: ["Node.js", "Express.js", "REST APIs"] },
-  { label: "Databases",      color: "#06b6d4", items: ["MongoDB", "MySQL", "Firebase"] },
+  { label: "Frontend", color: "#8b5cf6", items: ["HTML5", "CSS3", "JavaScript ES6+", "React", "Tailwind CSS", "Responsive Design"] },
+  { label: "Backend", color: "#10b981", items: ["Node.js", "Express.js", "REST APIs"] },
+  { label: "Databases", color: "#06b6d4", items: ["MongoDB", "MySQL", "Firebase"] },
   { label: "DevOps & Tools", color: "#f59e0b", items: ["Docker", "Linux", "Git", "GitHub", "Postman", "VS Code"] },
-  { label: "Learning Now",   color: "#f43f5e", items: ["TypeScript", "Next.js", "System Design", "Cloud", "Advanced Docker"] },
+  { label: "Learning Now", color: "#f43f5e", items: ["TypeScript", "Next.js", "System Design", "Cloud", "Advanced Docker"] },
 ];
 
 const TIMELINE = [
-  { period: "Early 2024",  event: "Started web development fundamentals",    note: "HTML, CSS, basic JavaScript" },
-  { period: "Mid 2024",    event: "Dug deep into JavaScript",                note: "ES6+, DOM, async/await, APIs" },
-  { period: "Early 2025",  event: "Built first React applications",          note: "Components, hooks, state, routing" },
-  { period: "Mid 2025",    event: "Mastered Git & GitHub",                   note: "Branches, PRs, collaboration workflow" },
-  { period: "Early 2026",  event: "Moved into backend development",          note: "Node.js, Express, MongoDB, Docker" },
-  { period: "Now",         event: "Shipping full-stack projects",            note: "Real-world apps with production focus" },
+  { period: "Early 2024", event: "Started web development fundamentals", note: "HTML, CSS, basic JavaScript" },
+  { period: "Mid 2024", event: "Dug deep into JavaScript", note: "ES6+, DOM, async/await, APIs" },
+  { period: "Early 2025", event: "Built first React applications", note: "Components, hooks, state, routing" },
+  { period: "Mid 2025", event: "Mastered Git & GitHub", note: "Branches, PRs, collaboration workflow" },
+  { period: "Early 2026", event: "Moved into backend development", note: "Node.js, Express, MongoDB, Docker" },
+  { period: "Now", event: "Shipping full-stack projects", note: "Real-world apps with production focus" },
 ];
 
-// ─── Micro-components ─────────────────────────────────────────────────────────
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 function Panel({ children, className = "", glow = false }: { children: React.ReactNode; className?: string; glow?: boolean }) {
   return (
     <div
-      className={`rounded-xl border border-white/[0.07] bg-[#111113] ${className}`}
-      style={glow ? { boxShadow: "0 0 0 1px rgba(139,92,246,.1), 0 8px 40px rgba(139,92,246,.06)" } : undefined}
+      className={`rounded-xl border border-white/[0.08] bg-[#111114]/95 shadow-[0_18px_60px_rgba(0,0,0,.18)] ${className}`}
+      style={glow ? { boxShadow: "0 0 0 1px rgba(139,92,246,.16), 0 24px 70px rgba(139,92,246,.08)" } : undefined}
     >
       {children}
     </div>
@@ -122,174 +121,156 @@ function Panel({ children, className = "", glow = false }: { children: React.Rea
 function Tag({ text, color = "#8b5cf6" }: { text: string; color?: string }) {
   return (
     <span
-      className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold font-mono tracking-wide"
-      style={{ background: `${color}18`, color, border: `1px solid ${color}25` }}
+      className="inline-flex min-h-7 items-center rounded-md px-2.5 py-1 text-xs font-semibold"
+      style={{ background: `${color}18`, color, border: `1px solid ${color}28` }}
     >
       {text}
     </span>
   );
 }
 
-function Label({ children }: { children: React.ReactNode }) {
+function Kicker({ children }: { children: React.ReactNode }) {
+  return <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">{children}</p>;
+}
+
+function SectionHeading({ kicker, title, children }: { kicker: string; title: string; children?: React.ReactNode }) {
   return (
-    <p className="text-[10px] font-mono uppercase tracking-[.12em] text-zinc-600 mb-3">{children}</p>
+    <div className="mb-7 max-w-2xl">
+      <Kicker>{kicker}</Kicker>
+      <h2 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl">{title}</h2>
+      {children ? <p className="mt-3 text-base leading-7 text-zinc-400">{children}</p> : null}
+    </div>
   );
 }
 
-function scrollTo(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+function NavButton({ item, active, onSelect, compact = false }: { item: (typeof NAV)[number]; active: boolean; onSelect: () => void; compact?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`relative flex min-h-11 items-center gap-2.5 rounded-lg px-3 text-sm font-semibold transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 ${
+        active ? "text-white" : "text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100"
+      } ${compact ? "shrink-0" : "w-full"}`}
+      aria-current={active ? "page" : undefined}
+    >
+      {active ? <motion.span layoutId={compact ? "mobile-nav-pill" : "side-nav-pill"} className="absolute inset-0 rounded-lg bg-violet-500/15 ring-1 ring-violet-400/20" /> : null}
+      <span className={`relative ${active ? "text-violet-300" : "text-zinc-500"}`}>{item.icon}</span>
+      <span className="relative">{item.label}</span>
+      {!compact && active ? <ChevronRight size={14} className="relative ml-auto text-violet-300/70" /> : null}
+    </button>
+  );
 }
-
-// ─── Top Bar ──────────────────────────────────────────────────────────────────
 
 function TopBar({ active, setActive }: { active: NavId; setActive: (id: NavId) => void }) {
   const [solid, setSolid] = useState(false);
+
   useEffect(() => {
-    const fn = () => setSolid(window.scrollY > 4);
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    const update = () => setSolid(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 flex items-center px-5 border-b border-white/[0.06] transition-colors duration-200"
-      style={{
-        height: TOPBAR_H,
-        background: solid ? "rgba(10,10,11,.95)" : "#0a0a0b",
-        backdropFilter: solid ? "blur(12px)" : undefined,
-      }}
+      className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] px-4 backdrop-blur-xl transition-colors duration-200 sm:px-6 lg:hidden"
+      style={{ background: solid ? "rgba(10,10,11,.9)" : "rgba(10,10,11,.98)" }}
     >
-      {/* Logo — aligned with sidebar */}
-      <div className="flex items-center gap-2 flex-shrink-0" style={{ width: SIDEBAR_W - 20 }}>
-        <div className="w-5 h-5 rounded bg-violet-600 flex items-center justify-center flex-shrink-0">
-          <span className="text-white text-[9px] font-bold font-mono">A</span>
-        </div>
-        <span className="text-[13px] font-semibold text-white tracking-tight">Amanuel.dev</span>
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4">
+        <button
+          type="button"
+          onClick={() => scrollTo("overview")}
+          className="flex min-h-11 items-center gap-2 rounded-lg pr-2 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+        >
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 text-sm font-bold text-white">A</span>
+          <span className="text-base font-bold tracking-tight text-white">Amanuel.dev</span>
+        </button>
+        <span className="hidden items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-sm font-semibold text-emerald-300 sm:flex">
+          <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          Available
+        </span>
       </div>
-
-      {/* Center nav */}
-      <nav className="flex items-center gap-0.5 flex-1 justify-center">
-        {NAV.map((n) => (
-          <button
-            key={n.id}
-            onClick={() => { setActive(n.id); scrollTo(n.id); }}
-            className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors duration-150 ${
-              active === n.id ? "text-white" : "text-zinc-500 hover:text-zinc-300"
-            }`}
-          >
-            {active === n.id && (
-              <motion.span
-                layoutId="topbar-pill"
-                className="absolute inset-0 rounded-md bg-white/[0.08]"
-                style={{ zIndex: -1 }}
-              />
-            )}
-            {n.icon}
-            {n.label}
-          </button>
+      <nav className="mx-auto flex max-w-6xl gap-2 overflow-x-auto pb-3" aria-label="Primary navigation">
+        {NAV.map((item) => (
+          <NavButton
+            key={item.id}
+            item={item}
+            active={active === item.id}
+            compact
+            onSelect={() => {
+              setActive(item.id);
+              scrollTo(item.id);
+            }}
+          />
         ))}
       </nav>
-
-      {/* Status */}
-      <div className="flex items-center gap-2 flex-shrink-0" style={{ width: SIDEBAR_W - 20, justifyContent: "flex-end" }}>
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium text-emerald-400 bg-emerald-400/8 border border-emerald-400/20">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          </span>
-          Available for Work
-        </div>
-      </div>
     </header>
   );
 }
 
-// ─── Fixed Sidebar ────────────────────────────────────────────────────────────
-
 function Sidebar({ active, setActive }: { active: NavId; setActive: (id: NavId) => void }) {
+  const socialLinks = [
+    { icon: <Github size={17} />, href: "#", label: "GitHub" },
+    { icon: <Linkedin size={17} />, href: "#", label: "LinkedIn" },
+    { icon: <MessageSquare size={17} />, href: "#", label: "Telegram" },
+    { icon: <Mail size={17} />, href: "mailto:your-email@example.com", label: "Email" },
+  ];
+
   return (
-    <aside
-      className="fixed left-0 bottom-0 flex flex-col border-r border-white/[0.07] bg-[#0a0a0b] overflow-y-auto"
-      style={{ top: TOPBAR_H, width: SIDEBAR_W }}
-    >
-      {/* Profile block */}
-      <div className="px-5 pt-6 pb-5 border-b border-white/[0.06]">
-        {/* Profile image — large and prominent */}
-        <div className="flex justify-center mb-4">
-          <div className="relative">
-            <div
-              className="rounded-2xl overflow-hidden"
-              style={{
-                width: 160,
-                height: 160,
-                boxShadow: "0 0 0 2px rgba(139,92,246,.35), 0 0 32px rgba(139,92,246,.18)",
-              }}
-            >
-              <img
-                src={profileImg}
-                alt="Amanuel Wendimu"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-            {/* Online indicator */}
-            <span
-              className="absolute bottom-2 right-2 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#0a0a0b]"
-              title="Online"
-            />
-          </div>
-        </div>
+    <aside className="fixed inset-y-0 left-0 z-40 hidden flex-col border-r border-white/[0.08] bg-[#0a0a0b] lg:flex" style={{ width: SIDEBAR_W }}>
+      <div className="px-6 pb-6 pt-7">
+        <button
+          type="button"
+          onClick={() => scrollTo("overview")}
+          className="mb-7 flex min-h-11 items-center gap-3 rounded-lg text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+        >
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-600 text-sm font-bold text-white">A</span>
+          <span>
+            <span className="block text-lg font-bold tracking-tight text-white">Amanuel.dev</span>
+            <span className="block text-sm text-zinc-500">Full-stack portfolio</span>
+          </span>
+        </button>
 
         <div className="text-center">
-          <h2 className="text-sm font-semibold text-white">Amanuel Wendimu</h2>
-          <p className="text-[11px] text-zinc-500 mt-0.5">Full-Stack Developer</p>
-          <p className="text-[10px] text-zinc-600 mt-2 leading-snug">
-            Building real-world web applications
-          </p>
-          <div className="flex items-center justify-center gap-1 mt-2 text-[10px] text-zinc-700 font-mono">
-            <MapPin size={9} className="text-zinc-600" />
+          <div className="relative mx-auto mb-5 h-44 w-44 overflow-hidden rounded-2xl border border-violet-300/25 bg-zinc-900 shadow-[0_24px_70px_rgba(139,92,246,.18)]">
+            <img src={profileImg} alt="Amanuel Wendimu" className="h-full w-full object-cover object-[50%_38%]" />
+            <span className="absolute bottom-3 right-3 h-4 w-4 rounded-full border-2 border-[#0a0a0b] bg-emerald-400" aria-label="Available for work" />
+          </div>
+          <h2 className="font-display text-2xl font-bold leading-tight text-white">Amanuel Wendimu</h2>
+          <p className="mt-1 text-base text-zinc-400">Full-Stack Developer</p>
+          <p className="mx-auto mt-3 max-w-[13rem] text-sm leading-6 text-zinc-500">Building reliable web applications with clean interfaces and practical backend systems.</p>
+          <div className="mt-4 flex items-center justify-center gap-2 text-sm text-zinc-500">
+            <MapPin size={15} className="text-zinc-600" />
             Addis Ababa, ET
           </div>
         </div>
       </div>
 
-      {/* Nav links */}
-      <nav className="px-3 py-4 flex flex-col gap-0.5 flex-1">
-        {NAV.map((n) => (
-          <button
-            key={n.id}
-            onClick={() => { setActive(n.id); scrollTo(n.id); }}
-            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150 text-left w-full ${
-              active === n.id
-                ? "bg-violet-500/10 text-violet-300 border border-violet-500/15"
-                : "text-zinc-500 hover:text-zinc-200 hover:bg-white/[0.04]"
-            }`}
-          >
-            <span className={active === n.id ? "text-violet-400" : ""}>{n.icon}</span>
-            {n.label}
-            {active === n.id && <ChevronRight size={11} className="ml-auto text-violet-500/50" />}
-          </button>
+      <nav className="flex flex-1 flex-col gap-2 px-4 py-3" aria-label="Primary navigation">
+        {NAV.map((item) => (
+          <NavButton
+            key={item.id}
+            item={item}
+            active={active === item.id}
+            onSelect={() => {
+              setActive(item.id);
+              scrollTo(item.id);
+            }}
+          />
         ))}
       </nav>
 
-      {/* Footer */}
-      <div className="px-5 py-4 border-t border-white/[0.06]">
-        <p className="text-[10px] font-mono text-zinc-700 mb-3">
-          Currently focused on React + Node.js
-        </p>
+      <div className="border-t border-white/[0.08] px-6 py-5">
+        <p className="mb-4 text-sm leading-6 text-zinc-500">Currently focused on React, Node.js, and production-ready full-stack apps.</p>
         <div className="flex items-center gap-2">
-          {[
-            { icon: <Github size={13} />, href: "#", label: "GitHub" },
-            { icon: <Linkedin size={13} />, href: "#", label: "LinkedIn" },
-            { icon: <MessageSquare size={13} />, href: "#", label: "Telegram" },
-            { icon: <Mail size={13} />, href: "mailto:your-email@example.com", label: "Email" },
-          ].map((s) => (
+          {socialLinks.map((link) => (
             <a
-              key={s.label}
-              href={s.href}
-              aria-label={s.label}
-              className="w-7 h-7 rounded-md border border-white/[0.08] flex items-center justify-center text-zinc-600 hover:text-zinc-300 hover:border-white/20 transition-all duration-150"
+              key={link.label}
+              href={link.href}
+              aria-label={link.label}
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.09] text-zinc-500 transition-colors duration-150 hover:border-white/20 hover:bg-white/[0.04] hover:text-zinc-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
             >
-              {s.icon}
+              {link.icon}
             </a>
           ))}
         </div>
@@ -298,86 +279,74 @@ function Sidebar({ active, setActive }: { active: NavId; setActive: (id: NavId) 
   );
 }
 
-// ─── Center Panel ─────────────────────────────────────────────────────────────
-
 function CenterPanel() {
   return (
-    <div className="flex flex-col gap-4">
-      {/* System card */}
-      <Panel glow className="p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-400/8 border border-emerald-400/20 px-2.5 py-1 rounded-full">
-            <Circle size={6} className="fill-emerald-400" />
-            System Status: Active Developer
-          </span>
-        </div>
+    <div className="flex flex-col gap-5">
+      <Panel glow className="p-6 sm:p-8">
+        <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-sm font-semibold text-emerald-300">
+          <Circle size={8} className="fill-emerald-400" />
+          Active Developer
+        </span>
 
-        <h1 className="text-xl font-bold text-white leading-tight mb-2">
-          Building Full-Stack Web Applications
-        </h1>
-        <p className="text-sm text-zinc-500 leading-relaxed mb-6 max-w-md">
-          I build scalable full-stack web applications using modern technologies with a focus on
-          real-world impact and clean, maintainable code.
-        </p>
+        <h1 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">Building Full-Stack Web Applications</h1>
+        <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-400">I build scalable full-stack web applications using modern technologies, with a focus on real-world impact, accessibility, and maintainable code.</p>
 
-        <div className="flex items-center gap-3 mb-6">
+        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <button
+            type="button"
             onClick={() => scrollTo("projects")}
-            className="flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white rounded-lg text-xs font-semibold transition-colors duration-150"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-violet-600 px-5 text-base font-bold text-white transition-colors duration-150 hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
           >
-            <FolderGit2 size={13} />
+            <FolderGit2 size={18} />
             View Projects
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 border border-white/10 text-zinc-300 hover:text-white hover:border-white/20 rounded-lg text-xs font-semibold transition-all duration-150">
-            <Download size={13} />
+          <button
+            type="button"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/[0.12] px-5 text-base font-bold text-zinc-200 transition-colors duration-150 hover:border-white/25 hover:bg-white/[0.04] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+          >
+            <Download size={18} />
             Download CV
           </button>
         </div>
 
-        {/* Tech stack */}
-        <div className="pt-5 border-t border-white/[0.06]">
-          <Label>Tech Stack</Label>
-          <div className="flex flex-wrap gap-2">
-            {TECH_STACK.map((t) => (
-              <Tag key={t} text={t} />
+        <div className="mt-8 border-t border-white/[0.08] pt-6">
+          <Kicker>Tech Stack</Kicker>
+          <div className="flex flex-wrap gap-2.5">
+            {TECH_STACK.map((tech) => (
+              <Tag key={tech} text={tech} />
             ))}
           </div>
         </div>
       </Panel>
 
-      {/* Two-col row */}
-      <div className="grid grid-cols-2 gap-4">
-        {/* Currently building */}
-        <Panel className="p-4">
-          <Label>Currently Building</Label>
-          <div className="flex flex-col gap-2">
-            {BUILDING.map((p) => (
-              <div
-                key={p.name}
-                className="flex items-center justify-between p-3 rounded-lg bg-white/[0.025] border border-white/[0.05]"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: p.dot }} />
-                  <span className="text-xs text-zinc-300 font-medium">{p.name}</span>
+      <div className="grid gap-5 md:grid-cols-2">
+        <Panel className="p-5">
+          <Kicker>Currently Building</Kicker>
+          <div className="flex flex-col gap-3">
+            {BUILDING.map((project) => (
+              <div key={project.name} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-white/[0.07] bg-white/[0.035] p-4">
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: project.dot }} />
+                  <span className="text-base font-semibold text-zinc-200">{project.name}</span>
                 </div>
-                <span className="text-[10px] font-mono" style={{ color: p.dot }}>{p.status}</span>
+                <span className="text-sm font-semibold" style={{ color: project.dot }}>{project.status}</span>
               </div>
             ))}
           </div>
         </Panel>
 
-        {/* Activity feed */}
-        <Panel className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <Label>Activity Feed</Label>
-            <span className="text-[10px] font-mono text-emerald-500 flex items-center gap-1 -mt-3">
-              <Circle size={5} className="fill-emerald-500" />live
+        <Panel className="p-5">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <Kicker>Activity Feed</Kicker>
+            <span className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-emerald-400">
+              <Circle size={7} className="fill-emerald-400" />
+              live
             </span>
           </div>
-          <ul className="flex flex-col gap-2.5">
-            {FEED.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-[11px] text-zinc-500">
-                <span className="text-violet-500 mt-px flex-shrink-0">{item.icon}</span>
+          <ul className="flex flex-col gap-3">
+            {FEED.map((item) => (
+              <li key={item.text} className="flex items-start gap-3 text-base leading-6 text-zinc-400">
+                <span className="mt-1 shrink-0 text-violet-400">{item.icon}</span>
                 {item.text}
               </li>
             ))}
@@ -388,49 +357,35 @@ function CenterPanel() {
   );
 }
 
-// ─── Right Panel ──────────────────────────────────────────────────────────────
-
 function RightPanel() {
   return (
-    <div className="flex flex-col gap-4">
-      {/* Stat cards */}
-      {STATS.map((s) => (
-        <Panel key={s.label} className="p-4">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-zinc-600">{s.icon}</span>
-            <span className="text-[10px] font-mono text-zinc-700">{s.sub}</span>
+    <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-1">
+      {STATS.map((stat) => (
+        <Panel key={stat.label} className="p-5">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <span className="text-zinc-500">{stat.icon}</span>
+            <span className="text-sm text-zinc-500">{stat.sub}</span>
           </div>
-          <p className="text-2xl font-bold text-white leading-none">{s.value}</p>
-          <p className="text-[11px] text-zinc-500 mt-1">{s.label}</p>
+          <p className="font-display text-3xl font-bold leading-none text-white">{stat.value}</p>
+          <p className="mt-2 text-base text-zinc-400">{stat.label}</p>
         </Panel>
       ))}
 
-      {/* Currently Learning */}
-      <Panel className="p-4">
-        <Label>Currently Learning</Label>
-        <div className="flex flex-col gap-2">
-          {LEARNING.map((item, i) => (
-            <div
-              key={item}
-              className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white/[0.025] border border-white/[0.05]"
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={{
-                  background:
-                    i === 0 ? "#8b5cf6" : i === 1 ? "#06b6d4" : i === 2 ? "#10b981" : "#f59e0b",
-                }}
-              />
-              <span className="text-xs text-zinc-300">{item}</span>
+      <Panel className="p-5">
+        <Kicker>Currently Learning</Kicker>
+        <div className="flex flex-col gap-3">
+          {LEARNING.map((item, index) => (
+            <div key={item} className="flex items-center gap-3 rounded-lg border border-white/[0.07] bg-white/[0.035] px-4 py-3">
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: index === 0 ? "#8b5cf6" : index === 1 ? "#06b6d4" : index === 2 ? "#10b981" : "#f59e0b" }} />
+              <span className="text-base font-medium text-zinc-300">{item}</span>
             </div>
           ))}
         </div>
       </Panel>
 
-      {/* Activity indicator */}
-      <Panel className="p-4">
-        <Label>Commit Activity</Label>
-        <div className="flex flex-col gap-2">
+      <Panel className="p-5 sm:col-span-2 xl:col-span-1">
+        <Kicker>Commit Activity</Kicker>
+        <div className="flex flex-col gap-3">
           {[
             { day: "Mon", pct: 80 },
             { day: "Tue", pct: 55 },
@@ -439,20 +394,20 @@ function RightPanel() {
             { day: "Fri", pct: 70 },
             { day: "Sat", pct: 30 },
             { day: "Sun", pct: 20 },
-          ].map((d) => (
-            <div key={d.day} className="flex items-center gap-2">
-              <span className="text-[10px] font-mono text-zinc-600 w-6">{d.day}</span>
-              <div className="flex-1 h-1.5 rounded-full bg-white/[0.05] overflow-hidden">
+          ].map((day) => (
+            <div key={day.day} className="flex items-center gap-3">
+              <span className="w-8 text-sm font-semibold text-zinc-500">{day.day}</span>
+              <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
                 <motion.div
                   initial={{ width: 0 }}
-                  whileInView={{ width: `${d.pct}%` }}
+                  whileInView={{ width: `${day.pct}%` }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                   className="h-full rounded-full"
-                  style={{ background: d.pct > 70 ? "#8b5cf6" : d.pct > 45 ? "#7c3aed" : "#4c1d95" }}
+                  style={{ background: day.pct > 70 ? "#8b5cf6" : day.pct > 45 ? "#06b6d4" : "#10b981" }}
                 />
               </div>
-              <span className="text-[10px] font-mono text-zinc-700 w-6 text-right">{d.pct}</span>
+              <span className="w-8 text-right text-sm text-zinc-500">{day.pct}</span>
             </div>
           ))}
         </div>
@@ -461,186 +416,91 @@ function RightPanel() {
   );
 }
 
-// ─── Dashboard row ────────────────────────────────────────────────────────────
-
 function DashboardRow() {
   return (
-    <section id="overview" className="grid gap-4" style={{ gridTemplateColumns: "1fr 220px" }}>
-      <CenterPanel />
-      <RightPanel />
-    </section>
-  );
-}
-
-// ─── About ────────────────────────────────────────────────────────────────────
-
-function AboutSection() {
-  return (
-    <section id="about" className="pt-12 pb-4">
-      <div className="mb-6">
-        <p className="text-[10px] font-mono uppercase tracking-[.12em] text-zinc-600 mb-1.5">About Me</p>
-        <h2 className="text-2xl font-bold text-white">The Developer Behind the Work</h2>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8 items-start">
-        <div className="text-sm text-zinc-400 leading-relaxed space-y-4">
-          <p>
-            I'm Amanuel, a self-taught full-stack developer from Addis Ababa, Ethiopia. I started
-            with a simple question — "how does this website actually work?" — and that curiosity
-            turned into a full development journey.
-          </p>
-          <p>
-            I focus on building things that actually work in the real world: clean APIs, responsive
-            frontends, and systems that are thoughtfully designed rather than just functional. I
-            take pride in writing code that other developers can read and build on.
-          </p>
-          <p>
-            My goal is to become a well-rounded engineer who can take a problem from idea to
-            production — not just write code, but architect solutions that scale and stand the
-            test of time.
-          </p>
-        </div>
-
-        {/* Timeline */}
-        <div className="relative pl-5 border-l border-white/[0.08]">
-          <div className="space-y-5">
-            {TIMELINE.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ delay: i * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="relative"
-              >
-                <div className="absolute -left-[21px] top-[5px] w-2 h-2 rounded-full border border-violet-500/50 bg-[#0a0a0b] flex items-center justify-center">
-                  <div className="w-1 h-1 rounded-full bg-violet-500" />
-                </div>
-                <p className="text-[10px] font-mono text-violet-500 tracking-wide mb-0.5">{item.period}</p>
-                <p className="text-sm font-medium text-zinc-200">{item.event}</p>
-                <p className="text-[11px] text-zinc-600 mt-0.5">{item.note}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+    <section id="overview" className="scroll-mt-32 pt-6 lg:scroll-mt-8 lg:pt-8">
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_280px]">
+        <CenterPanel />
+        <RightPanel />
       </div>
     </section>
   );
 }
-
-// ─── Projects ─────────────────────────────────────────────────────────────────
 
 function ProjectsSection() {
   return (
-    <section id="projects" className="pt-12 pb-4">
-      <div className="flex items-end justify-between mb-6">
-        <div>
-          <p className="text-[10px] font-mono uppercase tracking-[.12em] text-zinc-600 mb-1.5">Featured Projects</p>
-          <h2 className="text-2xl font-bold text-white">Things I've Built</h2>
-        </div>
-        <a href="#" className="flex items-center gap-1 text-xs text-zinc-600 hover:text-zinc-300 transition-colors mb-1">
-          All projects <ArrowUpRight size={12} />
+    <section id="projects" className="scroll-mt-32 py-14 lg:scroll-mt-8">
+      <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <SectionHeading kicker="Featured Projects" title="Things I've Built" />
+        <a href="#" className="inline-flex min-h-11 items-center gap-1.5 self-start rounded-lg px-1 text-base font-semibold text-zinc-400 transition-colors duration-150 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 sm:self-auto">
+          All projects <ArrowUpRight size={17} />
         </a>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
-        {PROJECTS.map((p, i) => (
-          <motion.div
-            key={p.title}
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {PROJECTS.map((project, index) => (
+          <motion.article
+            key={project.title}
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-30px" }}
-            transition={{ delay: i * 0.09, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: index * 0.09, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="group flex h-full flex-col overflow-hidden rounded-xl border bg-[#111114] transition-transform duration-200 hover:-translate-y-1"
+            style={{ borderColor: project.featured ? `${project.accent}45` : "rgba(255,255,255,.08)", boxShadow: project.featured ? `0 0 0 1px ${project.accent}14, 0 22px 60px ${project.accent}10` : undefined }}
           >
-            <div
-              className="group flex flex-col h-full rounded-xl bg-[#111113] border transition-all duration-200 hover:-translate-y-0.5 overflow-hidden"
-              style={{
-                borderColor: p.featured ? `${p.accent}30` : "rgba(255,255,255,.07)",
-                boxShadow: p.featured ? `0 0 0 1px ${p.accent}12, 0 8px 32px ${p.accent}08` : undefined,
-              }}
-            >
-              {/* Top accent strip */}
-              <div className="h-[2px]" style={{ background: p.accent }} />
-
-              <div className="p-5 flex flex-col flex-1">
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${p.accent}18` }}
-                    >
-                      <FolderGit2 size={13} style={{ color: p.accent }} />
-                    </div>
-                    <span className="text-sm font-semibold text-white">{p.title}</span>
-                  </div>
-                  {p.featured && (
-                    <span className="text-[9px] font-mono text-violet-400 bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 rounded flex-shrink-0">
-                      Featured
-                    </span>
-                  )}
+            <div className="h-1" style={{ background: project.accent }} />
+            <div className="flex flex-1 flex-col p-6">
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <div className="flex min-w-0 items-center gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg" style={{ background: `${project.accent}18` }}>
+                    <FolderGit2 size={18} style={{ color: project.accent }} />
+                  </span>
+                  <h3 className="text-lg font-bold leading-tight text-white">{project.title}</h3>
                 </div>
+                {project.featured ? <span className="shrink-0 rounded-md border border-violet-500/25 bg-violet-500/10 px-2 py-1 text-xs font-semibold text-violet-300">Featured</span> : null}
+              </div>
 
-                <p className="text-xs text-zinc-500 leading-relaxed mb-4 flex-1">{p.desc}</p>
+              <p className="mb-5 flex-1 text-base leading-7 text-zinc-400">{project.desc}</p>
+              <div className="mb-5 flex flex-wrap gap-2">
+                {project.tech.map((tech) => (
+                  <Tag key={tech} text={tech} color={project.accent} />
+                ))}
+              </div>
 
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {p.tech.map((t) => (
-                    <Tag key={t} text={t} color={p.accent} />
-                  ))}
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.07] pt-4">
+                <div className="flex items-center gap-1.5 text-sm text-zinc-500">
+                  <Star size={15} />
+                  {project.stars}
                 </div>
-
-                <div className="flex items-center justify-between pt-3 border-t border-white/[0.05]">
-                  <div className="flex items-center gap-1 text-[11px] text-zinc-600 font-mono">
-                    <Star size={10} /> {p.stars}
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <a href="#" className="flex items-center gap-1 text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">
-                      <Github size={11} /> Code
-                    </a>
-                    <a href="#" className="flex items-center gap-1 text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">
-                      <ExternalLink size={11} /> Demo
-                    </a>
-                  </div>
+                <div className="flex items-center gap-4">
+                  <a href="#" className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-zinc-400 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"><Github size={15} /> Code</a>
+                  <a href="#" className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-zinc-400 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"><ExternalLink size={15} /> Demo</a>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
     </section>
   );
 }
 
-// ─── Skills ───────────────────────────────────────────────────────────────────
-
 function SkillsSection() {
   return (
-    <section id="skills" className="pt-12 pb-4">
-      <div className="mb-6">
-        <p className="text-[10px] font-mono uppercase tracking-[.12em] text-zinc-600 mb-1.5">Skills</p>
-        <h2 className="text-2xl font-bold text-white">Technologies & Tools</h2>
-      </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {SKILLS_GROUPS.map((g, gi) => (
-          <motion.div
-            key={g.label}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-20px" }}
-            transition={{ delay: gi * 0.07, duration: 0.4 }}
-          >
-            <Panel className="p-4 h-full">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-1 h-4 rounded-full flex-shrink-0" style={{ background: g.color }} />
-                <span className="text-xs font-semibold text-zinc-300">{g.label}</span>
+    <section id="skills" className="scroll-mt-32 py-14 lg:scroll-mt-8">
+      <SectionHeading kicker="Skills" title="Technologies & Tools" />
+
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {SKILLS_GROUPS.map((group, index) => (
+          <motion.div key={group.label} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-20px" }} transition={{ delay: index * 0.07, duration: 0.4 }}>
+            <Panel className="h-full p-5">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="h-6 w-1.5 shrink-0 rounded-full" style={{ background: group.color }} />
+                <h3 className="text-lg font-bold text-zinc-100">{group.label}</h3>
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                {g.items.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-2 py-0.5 rounded text-[11px] text-zinc-400 bg-white/[0.04] border border-white/[0.06] hover:border-white/[0.15] hover:text-zinc-200 cursor-default transition-all duration-100"
-                  >
-                    {skill}
-                  </span>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((skill) => (
+                  <span key={skill} className="rounded-md border border-white/[0.07] bg-white/[0.04] px-3 py-1.5 text-sm font-medium text-zinc-300">{skill}</span>
                 ))}
               </div>
             </Panel>
@@ -651,117 +511,114 @@ function SkillsSection() {
   );
 }
 
-// ─── Contact ──────────────────────────────────────────────────────────────────
+function AboutSection() {
+  return (
+    <section id="about" className="scroll-mt-32 py-14 lg:scroll-mt-8">
+      <SectionHeading kicker="About Me" title="The Developer Behind the Work" />
+
+      <div className="grid gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(320px,420px)]">
+        <div className="space-y-5 text-lg leading-8 text-zinc-400">
+          <p>I'm Amanuel, a self-taught full-stack developer from Addis Ababa, Ethiopia. I started with a simple question: how does this website actually work? That curiosity turned into a full development journey.</p>
+          <p>I focus on building things that work in the real world: clean APIs, responsive frontends, and systems that are thoughtfully designed rather than just functional. I take pride in writing code other developers can read and build on.</p>
+          <p>My goal is to become a well-rounded engineer who can take a problem from idea to production, architecting solutions that scale and stand the test of time.</p>
+        </div>
+
+        <div className="relative border-l border-white/[0.1] pl-6">
+          <ol className="space-y-6">
+            {TIMELINE.map((item, index) => (
+              <motion.li key={item.period} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-20px" }} transition={{ delay: index * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] }} className="relative">
+                <span className="absolute -left-[31px] top-2 flex h-3 w-3 items-center justify-center rounded-full border border-violet-400/60 bg-[#0a0a0b]"><span className="h-1.5 w-1.5 rounded-full bg-violet-400" /></span>
+                <p className="mb-1 text-sm font-semibold uppercase tracking-[0.08em] text-violet-300">{item.period}</p>
+                <h3 className="text-lg font-bold text-zinc-100">{item.event}</h3>
+                <p className="mt-1 text-base leading-7 text-zinc-500">{item.note}</p>
+              </motion.li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const submit = (event: React.FormEvent) => {
+    event.preventDefault();
     setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    window.setTimeout(() => setSent(false), 4000);
     setForm({ name: "", email: "", message: "" });
   };
 
   return (
-    <section id="contact" className="pt-12 pb-10">
-      <div className="mb-6">
-        <p className="text-[10px] font-mono uppercase tracking-[.12em] text-zinc-600 mb-1.5">Contact</p>
-        <h2 className="text-2xl font-bold text-white">Let's Work Together</h2>
-        <p className="text-sm text-zinc-500 mt-1.5 max-w-md leading-relaxed">
-          Open to freelance work, collaborations, and interesting projects. Reach out and let's
-          build something useful.
-        </p>
-      </div>
+    <section id="contact" className="scroll-mt-32 pb-14 pt-14 lg:scroll-mt-8">
+      <SectionHeading kicker="Contact" title="Let's Work Together">Open to freelance work, collaborations, and interesting projects. Reach out and let's build something useful.</SectionHeading>
 
-      <div className="grid md:grid-cols-2 gap-5">
-        <div className="flex flex-col gap-4">
-          <Panel className="p-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              </div>
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(360px,1fr)]">
+        <div className="flex flex-col gap-5">
+          <Panel className="p-5">
+            <div className="mb-5 flex items-center gap-4">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10"><span className="h-2.5 w-2.5 rounded-full bg-emerald-400" /></div>
               <div>
-                <p className="text-xs font-semibold text-white">Available for Work</p>
-                <p className="text-[11px] text-zinc-500">Open to new opportunities</p>
+                <h3 className="text-lg font-bold text-white">Available for Work</h3>
+                <p className="text-base text-zinc-500">Open to new opportunities</p>
               </div>
             </div>
-            <div className="space-y-2.5">
+            <address className="space-y-3 not-italic">
               {[
-                { icon: <MapPin size={11} />, text: "Addis Ababa, Ethiopia" },
-                { icon: <Mail size={11} />,   text: "your-email@example.com" },
-                { icon: <Github size={11} />, text: "github.com/amanuel" },
+                { icon: <MapPin size={16} />, text: "Addis Ababa, Ethiopia" },
+                { icon: <Mail size={16} />, text: "your-email@example.com" },
+                { icon: <Github size={16} />, text: "github.com/amanuel" },
               ].map((row) => (
-                <div key={row.text} className="flex items-center gap-2 text-xs text-zinc-500">
-                  <span className="text-zinc-700">{row.icon}</span>
-                  {row.text}
-                </div>
+                <p key={row.text} className="flex items-center gap-3 text-base text-zinc-400"><span className="text-zinc-600">{row.icon}</span>{row.text}</p>
               ))}
-            </div>
+            </address>
           </Panel>
 
-          {/* Code snippet */}
-          <Panel className="p-4 font-mono text-xs leading-[1.8]">
-            <span className="text-zinc-600">// current status</span>
-            <br />
-            <span className="text-violet-400">const</span>
-            <span className="text-zinc-300"> dev </span>
-            <span className="text-zinc-600">= {"{"}</span>
-            <br />
-            <span className="pl-4 text-zinc-500">  name:      </span>
-            <span className="text-emerald-400">"Amanuel"</span>
-            <span className="text-zinc-600">,</span>
-            <br />
-            <span className="pl-4 text-zinc-500">  location:  </span>
-            <span className="text-emerald-400">"Addis Ababa"</span>
-            <span className="text-zinc-600">,</span>
-            <br />
-            <span className="pl-4 text-zinc-500">  available: </span>
-            <span className="text-violet-400">true</span>
-            <br />
-            <span className="text-zinc-600">{"}"}</span>
+          <Panel className="overflow-x-auto p-5 font-mono text-sm leading-7 text-zinc-400">
+            <pre aria-label="Current developer status">{`// current status
+const dev = {
+  name: "Amanuel",
+  location: "Addis Ababa",
+  available: true
+}`}</pre>
           </Panel>
         </div>
 
-        <Panel className="p-5">
-          <form onSubmit={submit} className="flex flex-col gap-4">
+        <Panel className="p-5 sm:p-6">
+          <form onSubmit={submit} className="flex flex-col gap-5">
             {[
-              { key: "name",  label: "Name",  type: "text",  placeholder: "Your name" },
+              { key: "name", label: "Name", type: "text", placeholder: "Your name" },
               { key: "email", label: "Email", type: "email", placeholder: "your@email.com" },
-            ].map((f) => (
-              <div key={f.key}>
-                <label className="block text-[10px] font-mono uppercase tracking-[.1em] text-zinc-600 mb-1.5">
-                  {f.label}
-                </label>
+            ].map((field) => (
+              <div key={field.key}>
+                <label htmlFor={field.key} className="mb-2 block text-sm font-bold uppercase tracking-[0.08em] text-zinc-400">{field.label}</label>
                 <input
-                  type={f.type}
+                  id={field.key}
+                  type={field.type}
                   required
-                  placeholder={f.placeholder}
-                  value={form[f.key as keyof typeof form]}
-                  onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-[#18181b] border border-white/[0.08] text-sm text-zinc-200 placeholder-zinc-700 focus:outline-none focus:border-violet-500/40 transition-colors duration-150"
+                  placeholder={field.placeholder}
+                  value={form[field.key as keyof typeof form]}
+                  onChange={(event) => setForm({ ...form, [field.key]: event.target.value })}
+                  className="min-h-12 w-full rounded-lg border border-white/[0.1] bg-[#18181b] px-4 text-base text-zinc-100 placeholder:text-zinc-600 transition-colors duration-150 focus:border-violet-400/70 focus:outline-none focus:ring-2 focus:ring-violet-500/25"
                 />
               </div>
             ))}
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-[.1em] text-zinc-600 mb-1.5">
-                Message
-              </label>
+              <label htmlFor="message" className="mb-2 block text-sm font-bold uppercase tracking-[0.08em] text-zinc-400">Message</label>
               <textarea
+                id="message"
                 required
-                rows={4}
+                rows={5}
                 placeholder="Tell me about your project..."
                 value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg bg-[#18181b] border border-white/[0.08] text-sm text-zinc-200 placeholder-zinc-700 focus:outline-none focus:border-violet-500/40 transition-colors duration-150 resize-none"
+                onChange={(event) => setForm({ ...form, message: event.target.value })}
+                className="w-full resize-y rounded-lg border border-white/[0.1] bg-[#18181b] px-4 py-3 text-base leading-7 text-zinc-100 placeholder:text-zinc-600 transition-colors duration-150 focus:border-violet-400/70 focus:outline-none focus:ring-2 focus:ring-violet-500/25"
               />
             </div>
-            <button
-              type="submit"
-              className="w-full flex items-center justify-center gap-2 py-2.5 bg-violet-600 hover:bg-violet-500 text-white rounded-lg text-xs font-semibold transition-colors duration-150"
-            >
-              {sent ? "Message Sent ✓" : <><Mail size={12} /> Send Message</>}
+            <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-violet-600 px-5 text-base font-bold text-white transition-colors duration-150 hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400">
+              {sent ? "Message Sent" : <><Mail size={18} /> Send Message</>}
             </button>
           </form>
         </Panel>
@@ -770,25 +627,19 @@ function ContactSection() {
   );
 }
 
-// ─── Footer ───────────────────────────────────────────────────────────────────
-
 function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] py-4">
-      <div className="flex items-center justify-between">
+    <footer className="border-t border-white/[0.08] py-6">
+      <div className="flex flex-col gap-3 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded bg-violet-600 flex items-center justify-center">
-            <span className="text-white text-[8px] font-bold font-mono">A</span>
-          </div>
-          <span className="text-xs font-semibold text-zinc-500">Amanuel.dev</span>
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600 text-xs font-bold text-white">A</span>
+          <span className="font-bold text-zinc-300">Amanuel.dev</span>
         </div>
-        <p className="text-[11px] font-mono text-zinc-700">© 2026 Amanuel Wendimu. All rights reserved.</p>
+        <p>© 2026 Amanuel Wendimu. All rights reserved.</p>
       </div>
     </footer>
   );
 }
-
-// ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
   const [active, setActive] = useState<NavId>("overview");
@@ -796,43 +647,42 @@ export default function App() {
   useEffect(() => {
     const ids: NavId[] = ["overview", "projects", "skills", "about", "contact"];
     const observers = ids.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActive(id); },
-        { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+      const element = document.getElementById(id);
+      if (!element) return null;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActive(id);
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
       );
-      obs.observe(el);
-      return obs;
+      observer.observe(element);
+      return observer;
     });
-    return () => observers.forEach((o) => o?.disconnect());
+
+    return () => observers.forEach((observer) => observer?.disconnect());
   }, []);
 
   return (
-    <div
-      className="bg-[#0a0a0b] text-[#ededed] min-h-screen"
-      style={{ fontFamily: "'Inter', sans-serif", fontSize: 14 }}
-    >
+    <div className="min-h-screen overflow-x-hidden bg-[#0a0a0b] text-[#ededed] antialiased">
       <style>{`
         html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 3px; }
+        body { font-family: "DM Sans", system-ui, sans-serif; background: #0a0a0b; }
+        .font-display { font-family: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif; }
+        ::selection { background: rgba(139, 92, 246, .35); color: white; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 99px; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 999px; }
       `}</style>
 
       <TopBar active={active} setActive={setActive} />
       <Sidebar active={active} setActive={setActive} />
 
-      {/* All scrollable content pushed right of fixed sidebar */}
-      <main
-        style={{ paddingTop: TOPBAR_H, paddingLeft: SIDEBAR_W }}
-        className="min-h-screen"
-      >
-        <div className="max-w-[900px] px-6 py-6 mx-auto">
+      <main className="min-h-screen pt-32 lg:pt-0 lg:pl-[280px]">
+        <div className="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
           <DashboardRow />
-          <AboutSection />
           <ProjectsSection />
           <SkillsSection />
+          <AboutSection />
           <ContactSection />
           <Footer />
         </div>
